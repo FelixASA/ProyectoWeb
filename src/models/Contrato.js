@@ -2,7 +2,7 @@ import { DataTypes } from "sequelize";
 import { sequelize } from "../database/database.js";
 
 
-export const Contrato = sequelize.define('Contrato',{
+export const Propietario_Propiedad = sequelize.define('Propietario_Propiedad',{
     id: {
         type: DataTypes.INTEGER,
         allowNull: false,
