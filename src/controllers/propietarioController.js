@@ -55,6 +55,8 @@ export const insertPropietario = async(req, res) => {
             RFC: rfc, Nombre: nombre, Apellido: apellido
         })
 
+        res.json(propietario)
+
     } catch (e) {
         res.status(500).json({message: e.message});
     }
