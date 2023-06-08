@@ -1,10 +1,12 @@
-import { getArrendatarios, getArrendatariosByRFC, insertArrendatario } from "../controllers/arrendatarioController.js";
+import * as Arrendatario from "../controllers/arrendatarioController.js";
 import { Router } from "express";
 
 const router = Router()
 
-router.get('/', getArrendatarios);
-router.get('/:rfc', getArrendatariosByRFC);
-router.post('/', insertArrendatario)
+router.get('/', Arrendatario.getArrendatarios);
+router.get('/:id', Arrendatario.getArrendatarioById);
+router.post('/', Arrendatario.insertArrendatario)
+router.delete('/:id', Arrendatario.deleteArrendatario)
+router.patch('/', Arrendatario.updateArrendatario)
 
 export default router;

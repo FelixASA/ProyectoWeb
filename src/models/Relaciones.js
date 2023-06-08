@@ -2,6 +2,7 @@ import { Arrendatario } from "./Arrendatario.js";
 import { Propiedad } from "./Propiedad.js";
 import { Propietario } from "./Propietario.js";
 import { Propietario_Propiedad } from "./Contrato.js";
+import { Users } from "./Users.js";
 
 export function relaciones(){
     //Arrendatario tiene varias propiedades
