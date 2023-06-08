@@ -1,14 +1,16 @@
-import { Arrendatario } from "../models/Arrendatario.js";
+import { Propietario } from "../models/Propietario.js";
 import { Propiedad } from "../models/Propiedad.js";
 
-export const getArrendatarios = async (req, res) => {
+export const getPropietarios = async (req, res) => {
     try {
 
-        const arrendatarios = await Arrendatario.findAll({
-            include: Propiedad
+        const propietarios = await Propietario.findAll({
+            include: {
+                model: Propiedad
+            }
         });
 
-        res.json(arrendatarios);
+        res.json(propietarios);
 
     } catch (e) {
         res.status(500).json({message: e.message});
@@ -23,32 +25,35 @@ export const getArrendatarios = async (req, res) => {
 //     }
 // }
 
-export const getArrendatariosByRFC = async (req, res) => {
+export const getPropietariosByRFC = async (req, res) => {
     try {
         //const id_Arrendatario = req.params.id_Arrendatario;
         const rfc = req.params.rfc;
 
-        const arrendatario = await Arrendatario.findOne({
+        const propietario = await Propietario.findOne({
             where: {
                 RFC: rfc
             },
+            include: [{
+                model: Propiedad,
+                as: 'propiedades'
+            }]
         })
-        res.json(arrendatario);
+
+        res.json(propietario);
 
     } catch (e) {
         res.status(500).json({message: e.message});
     }
 }
 
-export const insertArrendatario = async(req, res) => {
+export const insertPropietario = async(req, res) => {
     try {
         const {rfc, nombre, apellido} = req.body;
 
-        const arrendatario = await Arrendatario.create({
+        const propietario = await Propietario.create({
             RFC: rfc, Nombre: nombre, Apellido: apellido
         })
-
-        res.json(arrendatario)
 
     } catch (e) {
         res.status(500).json({message: e.message});

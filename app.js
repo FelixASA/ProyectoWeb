@@ -1,5 +1,7 @@
 import express from "express";
-import userRoute from "./src/routes/arrendatrioRoute.js"
+import arrendatrioRoute from "./src/routes/arrendatrioRoute.js"
+import propietarioRoute from "./src/routes/propietarioRoute.js"
+import propiedadRoute from "./src/routes/propiedadRoute.js"
 import { sequelize } from "./src/database/database.js";
 import { relaciones } from "./src/models/Relaciones.js";
 
@@ -9,12 +11,14 @@ const PORT = 4000
 
 app.use(express.json());
 
-app.use('/arrendatarios', userRoute);
+app.use('/arrendatario', arrendatrioRoute);
+app.use('/propiedad', propiedadRoute);
+app.use('/propietario', propietarioRoute);
 
 const main = async() => {
     try {
         relaciones();
-        await sequelize.sync({force: true});
+        await sequelize.sync({force: false});
         
            
         app.listen(PORT, () => {

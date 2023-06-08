@@ -1,7 +1,7 @@
 import { Arrendatario } from "./Arrendatario.js";
 import { Propiedad } from "./Propiedad.js";
 import { Propietario } from "./Propietario.js";
-import { Contrato, Propietario_Propiedad } from "./Contrato.js";
+import { Propietario_Propiedad } from "./Contrato.js";
 
 export function relaciones(){
     //Arrendatario tiene varias propiedades
@@ -13,12 +13,12 @@ export function relaciones(){
     //Propietarios pe
     Propietario.belongsToMany(Propiedad, { through: 'Propietario_Propiedad' });
 
-    Propiedad.hasMany(Propietario_Propiedad)
-    Contrato.belongsTo(Propiedad)
-
+    Propietario_Propiedad.belongsTo(Propiedad)
     Propietario.hasMany(Propietario_Propiedad)
-    Contrato.belongsTo(Propietario)
-
+    
+    Propietario_Propiedad.belongsTo(Propietario)
+    Propiedad.hasMany(Propietario_Propiedad)
+    
     
     
 }
