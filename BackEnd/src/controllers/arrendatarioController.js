@@ -20,11 +20,7 @@ export const getArrendatarioById = async (req, res) => {
         //const id_Arrendatario = req.params.id_Arrendatario;
         const id = req.params.id;
 
-        const arrendatario = await Arrendatario.findOne({
-            where: {
-                id: id
-            },
-        })
+        const arrendatario = await Arrendatario.findByPk(id)
         res.json(arrendatario);
 
     } catch (e) {

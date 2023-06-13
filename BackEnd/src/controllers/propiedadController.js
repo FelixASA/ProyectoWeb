@@ -1,7 +1,6 @@
 import { Propietario_Propiedad } from "../models/Contrato.js";
 import { Propiedad } from "../models/Propiedad.js";
 import { Propietario } from "../models/Propietario.js";
-import * as ArrendatarioObj from "../controllers/arrendatarioController.js";
 import { Arrendatario } from "../models/Arrendatario.js";
 
 export const getPropiedades = async (req, res) => {
@@ -21,13 +20,9 @@ export const getPropiedades = async (req, res) => {
 export const getPropiedadById = async (req, res) => {
     try {
         //const id_Arrendatario = req.params.id_Arrendatario;
-        const { id } = req.body;
+        const id = req.params.id;
 
-        const propiedad = await Propiedad.findOne({
-            where: {
-                id: id
-            }
-        })
+        const propiedad = await Propiedad.findByPk(id)
         res.json(propiedad);
 
     } catch (e) {
@@ -82,19 +77,16 @@ export const deletePropiedad = async (req, res) => {
 
 export const updatePropiedad = async (req, res) => {
     try {
-        const { id, clave, descripcion, arrendatarioId} = req.body;
+        const { id, clave, descripcion, arrendatarioId } = req.body;
 
-        const propiedad = await Propiedad.findOne({
-            where: {
-                id: id
-            },
-        })
+        const propiedad = await Propiedad.findByPk(id)
 
         if (!propiedad) {
             return res.json("No existe el id de propiedad");
         }
-        const arrendatario = await ArrendatarioObj.getArrendatarioById(arrendatarioId);
 
+        const arrendatario = await Arrendatario.findByPk(arrendatarioId);
+        console.log(arrendatario)
         if (!arrendatario) {
             return res.json("No existe el Id de arrendatario")
         }
@@ -105,7 +97,7 @@ export const updatePropiedad = async (req, res) => {
 
         // const relacionNueva = await actualizarRelacionesPorId(propiedadNueva)
 
-        res.json(propiedadNueva, relacionNueva)
+        res.json(propiedadNueva)
     } catch (e) {
         res.status(500).json({ message: e.message });
     }

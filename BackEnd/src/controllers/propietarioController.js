@@ -22,11 +22,7 @@ export const getPropietarioById = async (req, res) => {
         //const id_Arrendatario = req.params.id_Arrendatario;
         const id = req.params.id;
 
-        const propietario = await Propietario.findOne({
-            where: {
-                id: id
-            },
-        })
+        const propietario = await Propietario.findByPk(id)
         res.json(propietario);
 
     } catch (e) {
@@ -89,30 +85,6 @@ export const updatePropietario = async (req, res) => {
             id: id, RFC: rfc, Nombre: nombre, Apellido: apellido
         })
         res.json(propietarioNew)
-
-    } catch (e) {
-        res.status(500).json({message: e.message});
-    }
-}
-
-export const asociarPropiedad = async (req, res) => {
-    try {
-        const { PropiedadId, PropietarioId } = req.body;
-        
-        const propietario = await Propietario.findByPk(PropietarioId)
-        if(!propietario){
-            return res.json("No existe el id de propietario")
-        }
-
-        const propiedad = await Propiedad.findByPk(PropiedadId)
-        if(!propiedad){
-            return res.json("No existe el id de propiedad")
-        }
-
-        const relacion = await Propietario_Propiedad.create({
-            PropiedadId: PropiedadId, PropietarioId: PropietarioId
-        })
-        res.json(relacion)
 
     } catch (e) {
         res.status(500).json({message: e.message});
